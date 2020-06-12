@@ -1,14 +1,15 @@
 import React from 'react';
-import Food from './Food';
-import RecipiesFromAPI from './components/RecipiesFromAPI';
+import Main from './Main';
+//import RecipiesFromAPI from './components/RecipiesFromAPI';
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div className="App">
-      <h1>THE AMAZING COOKBOOK</h1>
+    <div className="App" >
+      <Navbar/>
       <h3>Add your recipe</h3>
-      <Food/>
-      <RecipiesFromAPI/>
+      <Main/>
+      {/* <RecipiesFromAPI/> */}
     </div>
   );
 }
