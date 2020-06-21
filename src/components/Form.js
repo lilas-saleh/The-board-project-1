@@ -7,21 +7,25 @@ import Fab from '@material-ui/core/Fab';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import db from "../firebase";
+import clsx from 'clsx';
+import Button from '@material-ui/core/Button';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+  '& .MuiTextField-root': {
+    margin: theme.spacing(1),
+    width: '100%'
+  },
+  },
+  font:{
+    fontFamily: 'Balsamiq Sans'
+  }
 
-
-
-root: {
-'& .MuiTextField-root': {
-margin: theme.spacing(1),
-width: '25ch',
-},
-},
 }));
 const defaultProps = {
-  bgcolor: '#DAB584',
-  borderColor: '#DAB584',
+  bgcolor: '#2EC4B6',
+  borderColor: '#2EC4B6',
   m: 1,
   border: 1,
   style: { width: '35%', height: '100%' },
@@ -37,8 +41,7 @@ const Form = (props)=> {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');  
   const [selectedCategory, selectCategory]= useState('food');
-
-  console.log(props)  
+  const [expanded, setExpanded] = useState(false);
   const classes = useStyles();
 
     
@@ -51,7 +54,8 @@ const Form = (props)=> {
     ingredients: ingredients,
     description: description,
     category: selectedCategory,
-    image: image
+    image: image,
+    isFavorite: false
   }
   db.collection(selectedCategory).add(
     recipeBody
@@ -65,14 +69,26 @@ const Form = (props)=> {
 
 };
 
- 
-
-
+const handleExpandClick =() => {
+  setExpanded(!expanded);
+};
 
   return (
     <Box display="flex" justifyContent="center">  
       <Box borderRadius="borderRadius" {...defaultProps}>
-        
+
+
+      <Button className={clsx(classes.expand, {
+        [classes.expandOpen]: expanded,
+        })}
+        onClick={handleExpandClick}
+        aria-expanded={expanded}
+        className={classes.font}
+        >
+        Click to add recipe</Button>
+
+
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
         <form className={classes.root} noValidate autoComplete="off" onSubmit={addRecipe}>
           <div style={{ display: 'column' }}>
             {/* select Category */}
@@ -150,9 +166,9 @@ const Form = (props)=> {
                 <TextField
                 label="Image URL"
                 type="url"
-                onChange={ e => setImage(e.target.value)}
-                  value={image}
-                  required
+                onChange={e => setImage(e.target.value)}
+                value={image}
+                required
                 />
               </Grid>
 
@@ -167,6 +183,7 @@ const Form = (props)=> {
             </Grid>
           </div>
         </form>
+        </Collapse>
       </Box>
     </Box>
 
@@ -174,3 +191,8 @@ const Form = (props)=> {
   );
 }
 export default Form;
+
+
+
+
+

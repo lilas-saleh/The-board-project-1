@@ -4,70 +4,31 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-// import Badge from '@material-ui/core/Badge';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-// import MailIcon from '@material-ui/icons/Mail';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import MoreIcon from '@material-ui/icons/MoreVert';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-// import EditIcon from '@material-ui/icons/Edit';
-
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-    grow: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      display: 'none',
+    font: {
+      fontFamily: 'Pacifico',
+      color:'#5F4E38',
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
+      display: 'none'
     },
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: '100%',
+    grow: {
+      flexGrow: 1,
+    },
+    hatIcon: {
+      marginRight: theme.spacing(0.1),
+      background: 'white'
+    },
+    title: {
+      background:'#ff9f1c',
       [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
-      },
-    },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    inputRoot: {
-      color: 'inherit',
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '20ch',
+        display: 'block',
       },
     },
     sectionDesktop: {
@@ -87,140 +48,56 @@ const useStyles = makeStyles((theme) => ({
   export default function Navbar() {
 
     const classes = useStyles();
-    // const [anchorEl, setAnchorEl] = React.useState(null);
-    // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  
-    // const isMenuOpen = Boolean(anchorEl);
-    // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  
-    // const handleProfileMenuOpen = (event) => {
-    //   setAnchorEl(event.currentTarget);
-    // };
-  
-    // const handleMobileMenuClose = () => {
-    //   setMobileMoreAnchorEl(null);
-    // };
-  
-    // const handleMenuClose = () => {
-    //   setAnchorEl(null);
-    //   handleMobileMenuClose();
-    // };
-  
-    // const handleMobileMenuOpen = (event) => {
-    //   setMobileMoreAnchorEl(event.currentTarget);
-    // };
-  
-    // const menuId = 'primary-search-account-menu';
-    // const renderMenu = (
-    //   <Menu
-    //     anchorEl={anchorEl}
-    //     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-    //     id={menuId}
-    //     keepMounted
-    //     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-    //     open={isMenuOpen}
-    //     onClose={handleMenuClose}
-    //   >
-    //     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-    //     <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    //   </Menu>
-    // );
-  
-    // const mobileMenuId = 'primary-search-account-menu-mobile';
-    // const renderMobileMenu = (
-    //   <Menu
-    //     anchorEl={mobileMoreAnchorEl}
-    //     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-    //     id={mobileMenuId}
-    //     keepMounted
-    //     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-    //     open={isMobileMenuOpen}
-    //     onClose={handleMobileMenuClose}
-    //   >
-    //     {/* <MenuItem>
-    //       <IconButton aria-label="show 4 new mails" color="inherit">
-    //         <Badge badgeContent={4} color="secondary">
-    //           <MailIcon />
-    //         </Badge>
-    //       </IconButton>
-    //       <p>Messages</p>
-    //     </MenuItem>
-    //     <MenuItem>
-    //       <IconButton aria-label="show 11 new notifications" color="inherit">
-    //         <Badge badgeContent={11} color="secondary">
-    //            <HomeIcon />
-    //         </Badge>
-    //       </IconButton>
-    //       <p>Notifications</p>
-    //     </MenuItem> */}
-    //   </Menu>
-    // );
-  
+
     return (
       <div className={classes.grow}>
-        <AppBar position="static" style={{background:'linear-gradient(45deg, #eacda3 30%, #d6ae7b 90%)'}}>
+        <AppBar position="static" className={classes.title}>
           <Toolbar>
             <IconButton
               edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
+              className={classes.hatIcon}
+              disabled='true'
             >
-              <MenuIcon />
+              <img src="https://img.icons8.com/ios/50/000000/chef-hat.png"/>
             </IconButton>
-            <Typography className={classes.title} variant="h6" noWrap>
-              COOKBOOK
+            <Typography className={classes} className={classes.font} variant="h4" noWrap>
+              Cookbook
             </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
             <div className={classes.grow} />
             <div >
-            <IconButton color="inherit">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton color="inherit">
+
+
+            <NavLink
+              to="/"
+              exact
+            >
+              <IconButton>
                 <HomeIcon />
               </IconButton>
-              <IconButton color="inherit">
+            </NavLink>
+
+            <NavLink
+              to="/Favorite"
+              exact
+            >
+              <IconButton >
+                <FavoriteIcon />
+              </IconButton>
+            </NavLink>
+
+            <NavLink
+              to='/About'
+              exact
+            >
+              <IconButton >
                 <InfoIcon />
               </IconButton>
-              {/* <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton> */}
+            </NavLink>
+
             </div>
-            {/* <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div> */}
+        
           </Toolbar>
         </AppBar>
-        {/* {renderMobileMenu} */}
-        {/* {renderMenu} */}
       </div>
     );
   }

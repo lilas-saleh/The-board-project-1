@@ -43,39 +43,48 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  iconMargin:{
+    flex: '1',
+    alignItems: 'center',
+  }
 }));
 
-export default function RecipeReviewCard(props) {
-  console.log(props)
+export default function RecipeReviewCard({recipe,refetch}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [ingredients, updateIngredients] = useState(props.props.ingredients);
-  const [description, updateDescription] = useState(props.props.description);
-
-
-
-
-  const handleExpandClick =() => {
-    setExpanded(!expanded);
-  };
+  const [ingredients, updateIngredients] = useState(recipe.ingredients);
+  const [description, updateDescription] = useState(recipe.description);
+  let [hiddenEditButton ,hideEditButton] = useState(true);
+  const [favorites, setFavorite]= useState(false);
 
 // Delete each recipe from db and fetch all
-  const deleteRecipe = (id,category) =>{
+  const deleteRecipe = (id, category, mainCategory) =>{
+    if(category=== "favorite"){ db.collection(mainCategory).doc(id).update({
+      isFavorite: false
+    }) 
+    setFavorite(false)
+  } 
     db.collection(category).doc(id).delete().then(function() {
+      
       console.log("Document successfully deleted!");
     }).catch(function(error) {
       console.error("Error removing document: ", error);
     });
-    props.refetch()
+    
+    refetch()
   }
 
-  const editButtonClicked= ()=>{
-    handleExpandClick()
-    //it should also show the button that supposed to be hidden
-
-
+  const editIconClicked= ()=>{
+    setExpanded(!expanded);
+    expanded === true ? hideEditButton(true):hideEditButton(false);
   }
-  // BUG on the second submit
+
+  const expandIconClicked= ()=>{
+    hideEditButton(true);
+    setExpanded(!expanded);
+   
+  }
+  
   const editRecipeOnSubmitChanges= (category,id)=>{ 
     db.collection(category).doc(id)
     .onSnapshot(()=> {
@@ -85,31 +94,50 @@ export default function RecipeReviewCard(props) {
           description: description
         });
     });
-    console.log('changes submitted')
-    console.log(ingredients)
+  }
+  const addToFavorite= () =>{
+    const recipeBody = {
+      title: recipe.title,
+      serving: recipe.serving,
+      ingredients: recipe.ingredients,
+      description: recipe.description,
+      category: recipe.category,
+      image: recipe.image,
+      isFavorite: true
+    }
+    db.collection("favorite").doc(recipe.id).set(
+      recipeBody
+    )
+    db.collection(recipe.category).doc(recipe.id).update({
+      isFavorite: true
+    }
+      
+    )
+    setFavorite(true)
   }
 
+  const handleFavorite=()=>{
+    recipe.isFavorite ? 
+    recipe.isFavorite  === false ?addToFavorite() : deleteRecipe(recipe.id,"favorite", recipe.category) : addToFavorite()
+  }
 
   return (
-
     <Card className={classes.root} style={{margin: 10}}>
       <CardHeader
-      title={props.props.title}
-      subheader={props.props.serving}
+      title={recipe.title}
+      subheader={`Serving: ${recipe.serving}`}
       />
       <CardContent>
-        <img src = {props.props.image} width='100%' alt=""/>
+        <img src = {recipe.image} width='100%'  height="200px"/>
       </CardContent>
-
       <CardActions disableSpacing>
-
+      
       <FormControlLabel
-      control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
-      // label="Favorites"
+      control={<Checkbox icon={<FavoriteBorder />} checked={recipe.isFavorite===true || favorites? true: false} checkedIcon={<Favorite />} name="checkedH" onChange={handleFavorite} className={classes.iconMargin}/>}
       />
 
       <Tooltip title="Delete">
-        <IconButton aria-label="delete" onClick={()=>deleteRecipe(props.props.id,props.props.category)}>
+        <IconButton aria-label="delete" onClick={()=>deleteRecipe(recipe.id,recipe.category)} className={classes.iconMargin}>
           <DeleteIcon />
         </IconButton>
       </Tooltip>
@@ -119,20 +147,22 @@ export default function RecipeReviewCard(props) {
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={editButtonClicked}
-          aria-expanded={expanded}>
+          onClick={editIconClicked}
+          aria-expanded={expanded}
+          className={classes.iconMargin}
+          >
           <EditIcon />
         </IconButton>
       </Tooltip>
-
 
       <IconButton
         className={clsx(classes.expand, {
         [classes.expandOpen]: expanded,
         })}
-        onClick={handleExpandClick}
+        onClick={expandIconClicked}
         aria-expanded={expanded}
         aria-label="show more"
+        className={classes.iconMargin}
         >
         <ExpandMoreIcon />
       </IconButton>
@@ -141,25 +171,25 @@ export default function RecipeReviewCard(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
         <Typography paragraph>
-          Ingredients:
+          <b>Ingredients:</b>
           <br/>
           <InputBase
           className={classes.margin}
           inputProps={{ 'aria-label': 'naked' }}
-          rowsMax={10}
+          rowsMax={40}
           label=" Ingridient:"
           multiline
           onChange= {e => updateIngredients(e.target.value)}
-          defaultValue={props.props.ingredients}
+          defaultValue={recipe.ingredients}
           />
         </Typography>
 
         <Typography paragraph>
-          Description:
+          <b>Description:</b>
           <br/>
           <InputBase
           className={classes.margin}
-          defaultValue={props.props.description}
+          defaultValue={recipe.description}
           inputProps={{'aria-label' : 'naked'}}
           onChange= {e => updateDescription(e.target.value)}
           multiline
@@ -167,18 +197,13 @@ export default function RecipeReviewCard(props) {
           />
         </Typography>  
 
-        {/* Dont forget to hide the button */}
-        {/* <Box component="div" visibility="hidden"> */}
-          <Button variant="outlined" color="secondary" visibility="hidden" onClick={()=>editRecipeOnSubmitChanges(props.props.category,props.props.id)}>
-            Submit changes
+        <Box component="div" visibility={`${ hiddenEditButton=== false ? 'visible' : 'hidden'}`}>
+          <Button variant="outlined" color="secondary" onClick={()=>editRecipeOnSubmitChanges(recipe.category, recipe.id)}>
+            save changes
           </Button>
-        {/* </Box> */}
-        
-        
-
+        </Box>
         </CardContent>
       </Collapse>
     </Card>
   );
 }
-
