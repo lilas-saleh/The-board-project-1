@@ -12,4 +12,4 @@ const firebaseApp = firebase.initializeApp({
 });
 
 
-export default firebaseApp.firestore(); ;
+export default firebaseApp.firestore(); 
