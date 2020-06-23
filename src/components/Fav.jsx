@@ -7,8 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     text: {
         fontFamily: 'Roboto Slab',
-        marginLeft: "5%"
-    },
+        marginLeft: "5%",
+    }
   });
 
 const Fav= () => {
@@ -34,7 +34,6 @@ const Fav= () => {
         },[]);
     return (
         <div>
-            {console.log(favorite)}
            <h1 className={classes.text}> Favorites 🤍</h1> 
            <Grid container>
                 {Object.keys(favorite).map((key)=>
