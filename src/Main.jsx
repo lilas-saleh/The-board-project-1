@@ -33,7 +33,7 @@ const Main = () => {
   
   return (
     <>
-      <ToggleButtonDisplay recipes={recipes} refetch={fetchAllRecipies}/>
+      <ToggleButtonDisplay key={recipes.id} recipes={recipes} refetch={fetchAllRecipies}/>
     </>
 );
 }
