@@ -128,7 +128,7 @@ export default function RecipeReviewCard({recipe,refetch}) {
       subheader={`Serving: ${recipe.serving}`}
       />
       <CardContent>
-        <img src = {recipe.image} width='100%'  height="200px"/>
+        <img src = {recipe.image} alt={recipe.title} width='100%'  height="200px"/>
       </CardContent>
       <CardActions disableSpacing>
       

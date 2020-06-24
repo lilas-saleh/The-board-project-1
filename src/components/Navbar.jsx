@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
               className={classes.hatIcon}
               disabled='true'
             >
-              <img src="https://img.icons8.com/ios/50/000000/chef-hat.png"/>
+              <img src="https://img.icons8.com/ios/50/000000/chef-hat.png" alt='chefsHat'/>
             </IconButton>
             <Typography className={classes} className={classes.font} variant="h4" noWrap>
               Cookbook

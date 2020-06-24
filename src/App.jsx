@@ -25,7 +25,7 @@ function App() {
     <>
       <Router>
         <Navbar />
-        <div className="classes.style">
+        <div className={classes.style}>
           <Route exact path="/" component={Main} />
           <Route exact path="/Favorite" component={Fav} />
           <Route exact path="/About" component={About} />
