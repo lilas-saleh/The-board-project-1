@@ -95,7 +95,7 @@ const handleExpandClick =() => {
 
             <Grid container spacing={24} style={{width: '70%'}}>
 
-              <Grid xs={12}>
+              <Grid>
                 <TextField
                   select
                   label="Select"
@@ -104,14 +104,14 @@ const handleExpandClick =() => {
                   helperText="select category"
                   >
                   {['food','drinks','desserts'].map((option) => (
-                    <MenuItem value={option}>
+                    <MenuItem value={option} key={option}>
                       {option}
                     </MenuItem>
                   ))}
                 </TextField>
               </Grid>
 
-              <Grid xs={12}>
+              <Grid>
               {/* {Title input} */}
                 <TextField
                 label="Recipe Title"
@@ -121,7 +121,7 @@ const handleExpandClick =() => {
                 />
               </Grid>  
 
-              <Grid xs={12}>
+              <Grid>
               {/* Serving */}
                 <TextField
                 label="Serving Number"
@@ -136,7 +136,7 @@ const handleExpandClick =() => {
               </Grid>
 
               {/* ingredients */}
-              <Grid xs={12}>
+              <Grid >
                 <TextField
                 label="Ingredients"
                 multiline
@@ -149,7 +149,7 @@ const handleExpandClick =() => {
               </Grid>
 
               {/* description */}
-              <Grid xs={12}>
+              <Grid >
                 <TextField
                   label="Description"
                   multiline
@@ -161,7 +161,7 @@ const handleExpandClick =() => {
                 />
               </Grid>
 
-              <Grid xs={12}>
+              <Grid>
               {/* image input */}
                 <TextField
                 label="Image URL"
@@ -173,7 +173,7 @@ const handleExpandClick =() => {
               </Grid>
 
               {/* submit button */}
-              <Grid xs={12} >
+              <Grid >
                 <Fab type="submit" variant="extended" style={{margin: '10%'}}>
                   <FastfoodIcon />
                     Add recipe
@@ -186,8 +186,6 @@ const handleExpandClick =() => {
         </Collapse>
       </Box>
     </Box>
-
-
   );
 }
 export default Form;

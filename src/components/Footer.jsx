@@ -10,10 +10,7 @@ const useStyles = makeStyles({
     width: '100%',
     backgroundColor: '#2ec4b6',
     marginBottom: '0',
-    // left: '0',
-    // height: '10%',
-    //marginTop: '20'
-    
+
   },
 
   icons:{
@@ -37,15 +34,15 @@ export default function SimpleBottomNavigation() {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
-      showLabels
+      showLabels= {true}
       className={classes.root}
     >
-        <Typography className={classes.font}>
+      <Typography className={classes.font}>
         &copy; 2020 by Lilas & Mira 
-            <BottomNavigationAction icon={< GitHubIcon onClick={() => window.open('https://github.com/lilas-saleh')}/>} className={classes.icons}/>
-            |
-            <BottomNavigationAction icon={< GitHubIcon onClick={() => window.open('https://github.com/MiraAr')}/>} className={classes.icons}/>
-        </Typography>
+          <BottomNavigationAction icon={< GitHubIcon onClick={() => window.open('https://github.com/lilas-saleh')}/>} className={classes.icons}/>
+          |
+          <BottomNavigationAction icon={< GitHubIcon onClick={() => window.open('https://github.com/MiraAr')}/>} className={classes.icons}/>
+      </Typography>
      
     </BottomNavigation>
   );

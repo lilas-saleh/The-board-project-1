@@ -21,13 +21,14 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
+  const key=Math.floor(Math.random()*100);
   return (
     <>
       <Router>
         <Navbar />
-        <div className={classes.style}>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/Favorite" component={Fav} />
+        <div className={classes.style} key={key}>
+          <Route exact path="/" component={Main} key={key+1}/>
+          <Route exact path="/Favorite" component={Fav}/>
           <Route exact path="/About" component={About} />
           <Footer/>
         </div>

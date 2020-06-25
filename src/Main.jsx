@@ -29,11 +29,12 @@ const Main = () => {
   fetchAllRecipies();
   },[]);
 
-
+  const key= Math.floor(Math.random() * 10); 
   
   return (
+    
     <>
-      <ToggleButtonDisplay key={recipes.id} recipes={recipes} refetch={fetchAllRecipies}/>
+      <ToggleButtonDisplay key={key} recipes={recipes} refetch={fetchAllRecipies}/>
     </>
 );
 }

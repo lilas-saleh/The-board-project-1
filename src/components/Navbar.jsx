@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
             <IconButton
               edge="start"
               className={classes.hatIcon}
-              disabled='true'
+              disabled= {true}
             >
               <img src="https://img.icons8.com/ios/50/000000/chef-hat.png" alt='chefsHat'/>
             </IconButton>

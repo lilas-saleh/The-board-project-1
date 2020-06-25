@@ -23,11 +23,11 @@ const ToggleButtonDisplay= ({recipes,refetch})=>{
                     Board
                 </ToggleButton>
             </ToggleButtonGroup>
-            <Form fetchAllRecipies={refetch}/>
+            <Form fetchAllRecipies={refetch} key={recipes.id}/>
             {view==="module" ? 
             <Grid container>
                 {Object.keys(recipes).map((key)=>
-                    <CardsBoard cards={recipes[key]}  category={key} refetch={refetch}/>
+                    <CardsBoard cards={recipes[key]}  category={key} refetch={refetch} key={key}/>
                 )}
             </Grid> : <CardsList recipes={recipes} refetch={refetch}/>}
         </>
