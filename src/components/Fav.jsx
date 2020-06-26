@@ -34,7 +34,7 @@ const Fav= () => {
         },[]);
     return (
         <div>
-           <h1 className={classes.text}> Favorites 🤍</h1> 
+           <h1 className={classes.text}> Favorites</h1> 
            <Grid container>
                 {Object.keys(favorite).map((key)=>
                     <CardsBoard cards={favorite[key]}  category={key} refetch={fetch}/>
